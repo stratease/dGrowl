@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>stratease/dGrowl</title>
+	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+	<link href="/dGrowl/dGrowl.css" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/dojo/1.8.2/dojo/dojo.js" data-dojo-config="packages:[{ name: 'dGrowl', location: '/dGrowl' }]"></script>
+	<style>
+		#mainWrap {
+			width: 800px;
+			margin: 0 auto;
+		}
+	</style>
+	<script type="text/javascript">
+		require(['dGrowl', 'dojo/topic'], function(dGrowl, topic)
+		{
+			var dg = new dGrowl({'channels':[{pos:1,name:'bob',color:'#333'}],
+											'orientation':'topRight', // topLeft, bottomRight, bottomLeft
+											'zIndex':'999'});
+			topic.publish('bob', [{m:'hi there!'}]);
+			dg.addNotification('bob', {m:'hi I was manually added'});
+		});
+
+	</script>
+  </head>
+  <body>
+	<div id="mainWrap" class="well">
+		<h1>dGrowl</h1>
+		<p></p>
+	</div>
+  </body>
+</html>
