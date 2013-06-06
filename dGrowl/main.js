@@ -1,11 +1,12 @@
-define([ "dojo/text", "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin", "dojo/topic", "dojo/dom-construct", "dGrowl/NotificationNode"],
-	   function(t, declare, base, templated, topic, domCon, NotificationNode)
+define([ "dojo/text", "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin", "dojo/topic", "dojo/dom-construct", "dGrowl/NotificationNode", "dojo/query", "dojo/_base/lang", "dojo/dom-class"],
+	   function(t, declare, base, templated, topic, domCon, NotificationNode, query, lang, domClass)
 {
 	return declare('dGrowl',
 	[base, templated],
 	{
 		'templateString':dojo.cache('dGrowl', 'main.html'),
-		'channels':[], // channel definitions
+		'channels':[{name:'default', pos:0}], // channel user definitions
+		'orientation':'topRight',
 		'postCreate':function()
 		{
 			this.inherited(arguments);
@@ -20,8 +21,15 @@ define([ "dojo/text", "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_Templat
 			{
 				this.chanDefs[this.channels[i].name] = this.channels[i]; // main def
 				this.chanDefs[this.channels[i].name].node = domCon.create('li',{'class':"dGrowl-channel dGrowl-channel-"+this.channels[i].name}); // node
-				this.chanDefs[this.channels[i].name]._s = topic.subscribe(this.channels[i].name, this.subscribedChannels);
+				domCon.place(this.chanDefs[this.channels[i].name].node, this.channelsN);
 			}
+			// event
+			this._s = topic.subscribe('dGrowl', lang.hitch(this, this._subscribedChannels));
+			// style myself..
+			domClass.add(this.domNode, 'dGrowl-' + this.orientation);
+			// push myself to the window..
+			var b = query('body')[0];
+			domCon.place(this.domNode, b, 'top');
 		},
 		'destroy':function() // cleanup!! important to get rid of our awesomeness, when noone loves us anymore.
 		{
@@ -29,23 +37,29 @@ define([ "dojo/text", "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_Templat
 			{
 				topic.unsubscribe(this.chanDefs[i]._s);
 			}
+			topic.unsubscribe(this._s);
 			this.inherited(arguments);
 		},
-		'subscribedChannels':function()
+		'_subscribedChannels':function(a)
 		{
-			console.log(arguments);
+			this.addNotification(a.channel, a.message)
 		},
 		// creates and displays a new notification widget
 		'addNotification':function(c, m)
 		{
 			if(this.chanDefs[c] != undefined)
 			{
-				if(m instanceof String)
-					var n = new NotificationNode({m:m, channel:'default'})
+				if(typeof m == 'string'
+				   || m instanceof String)
+					var n = new NotificationNode({message:m, channel:c})
 				else
+				{
+					m.channel = c;
 					var n = new NotificationNode(m);
+				}
 				domCon.place(n.domNode, this.chanDefs[c].node); // push to page
-				n.show(); // trigger display animation
+				var v = n.domNode.clientHeight;
+				n.show();
 			}
 			else
 				console.error(c + ' channel is not defined!');

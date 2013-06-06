@@ -1,4 +1,6 @@
-<li id="${id}" class="dGrowl-notification dGrowl-notification-${channel}">
-	<span class="dGrowl-header"><i class="dGrowl-close-btn">x</i></span>
-	${!m}
-</li>
+<div id="${id}" class="dGrowl-notification dGrowl-notification-${channel}">
+	<i class="dGrowl-close-btn" data-dojo-attach-event="onclick:killme">x</i>
+	<span class="dGrowl-header"><span class="dGrowl-title">${!title}</span></span>
+
+	<div class="dGrowl-message">${!message}</div>
+</div>
