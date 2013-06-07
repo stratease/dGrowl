@@ -1,3 +1,11 @@
+.dGrowl-main {
+	top: 2;
+	right: 2;
+	position: fixed;
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
 .dGrowl-channel {
 	z-index: 999;
 	position: relative;
@@ -8,9 +16,7 @@
 .dGrowl-notification {
 	background-color: #D9EDF7;
     border: 1px solid #BCE8F1;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-    color: #333333;
-
+    color: #000000;
 	margin: 5px;
 	padding: 5px;
 	width: 190px;
@@ -39,9 +45,12 @@
 }
 .dGrowl-title {
 	font-weight: bold;
-	font-family: Verdana;
+	font-size: 0.9em;
 }
-.dGrowl-close-btn {
+a.dGrowl-close-btn {
+	color: inherit;
+	font-variant: normal;
+	text-decoration: none;
 	cursor: pointer;
 	float: right;
 	margin: 0 4px;
@@ -51,6 +60,14 @@
 	font-weight: bold;
 	font-style: normal;
 }
-.dGrowl-close-btn:hover {
+a.dGrowl-close-btn:hover {
 	opacity: 0.85;
+	color: inherit;
+	font-variant: normal;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 18px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-weight: bold;
+	font-style: normal;
 }

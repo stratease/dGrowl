@@ -40,29 +40,29 @@ define([ "dojo/text", "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_Templat
 			topic.unsubscribe(this._s);
 			this.inherited(arguments);
 		},
-		'_subscribedChannels':function(a)
+		'_subscribedChannels':function()
 		{
-			this.addNotification(a.channel, a.message)
+			this.addNotification(arguments[0], arguments[1])
 		},
 		// creates and displays a new notification widget
-		'addNotification':function(c, m)
+		'addNotification':function(m, o)
 		{
-			if(this.chanDefs[c] != undefined)
+			// option undefined, create default
+			if(o == undefined)
+				o = {channel:this.channels[0].name};
+			else if(o.channel == undefined)
+				o.channel = this.channels[0].name;
+			// verify the channel exists
+			if(this.chanDefs[o.channel] != undefined)
 			{
-				if(typeof m == 'string'
-				   || m instanceof String)
-					var n = new NotificationNode({message:m, channel:c})
-				else
-				{
-					m.channel = c;
-					var n = new NotificationNode(m);
-				}
-				domCon.place(n.domNode, this.chanDefs[c].node); // push to page
-				var v = n.domNode.clientHeight;
+				// moosh options/message together and kick off the notification...
+				o.message = m;
+				var n = new NotificationNode(o);
+				domCon.place(n.domNode, this.chanDefs[o.channel].node); // push to page
 				n.show();
 			}
 			else
-				console.error(c + ' channel is not defined!');
+				console.error(o.channel + ' channel is not defined!');
 		},
 		// sorts the channel definitions based on the pos numeric property
 		'sortChannels':function(a,b)
