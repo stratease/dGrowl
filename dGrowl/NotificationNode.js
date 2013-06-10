@@ -6,6 +6,7 @@ define([ "dojo/text", "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_Templat
 	{
 		'templateString':dojo.cache('dGrowl', 'NotificationNode.html'),
 		'title':'',
+		'message':'',
 		'duration':5000,
 		'sticky':false,
 		'stickyClass':'',
