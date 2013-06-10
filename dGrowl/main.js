@@ -7,6 +7,7 @@ define([ "dojo/text", "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_Templat
 		'templateString':dojo.cache('dGrowl', 'main.html'),
 		'channels':[{name:'default', pos:0}], // channel user definitions
 		'orientation':'topRight',
+		'defaultChannel':null,
 		'postCreate':function()
 		{
 			this.inherited(arguments);
@@ -14,14 +15,17 @@ define([ "dojo/text", "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_Templat
 			{
 				this.channels = [this.channels];
 			}
+			// we trying to set this or do I need to..?
+			if(this.defaultChannel === null)
+			{
+				this.defaultChannel = this.channels[0].name; // first specified = default
+			}
 			this.channels.sort(this.sortChannels);
 			this.chanDefs = {}; // channel definitions indexed by channel name
 			// build nodes for the channels
 			for(var i = 0; i < this.channels.length; i++)
 			{
-				this.chanDefs[this.channels[i].name] = this.channels[i]; // main def
-				this.chanDefs[this.channels[i].name].node = domCon.create('li',{'class':"dGrowl-channel dGrowl-channel-"+this.channels[i].name}); // node
-				domCon.place(this.chanDefs[this.channels[i].name].node, this.channelsN);
+				this.addChannel(this.channels[i].name,this.channels[i]);
 			}
 			// event
 			this._s = topic.subscribe('dGrowl', lang.hitch(this, this._subscribedChannels));
@@ -44,14 +48,20 @@ define([ "dojo/text", "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_Templat
 		{
 			this.addNotification(arguments[0], arguments[1])
 		},
+		'addChannel':function(c, o)
+		{
+			this.chanDefs[c] = o; // main def
+			this.chanDefs[c].node = domCon.create('li',{'class':"dGrowl-channel dGrowl-channel-"+c}); // node
+			domCon.place(this.chanDefs[c].node, this.channelsN);
+		},
 		// creates and displays a new notification widget
 		'addNotification':function(m, o)
 		{
 			// option undefined, create default
 			if(o == undefined)
-				o = {channel:this.channels[0].name};
+				o = {channel:this.defaultChannel};
 			else if(o.channel == undefined)
-				o.channel = this.channels[0].name;
+				o.channel = this.defaultChannel;
 			// verify the channel exists
 			if(this.chanDefs[o.channel] != undefined)
 			{
@@ -62,7 +72,7 @@ define([ "dojo/text", "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_Templat
 				n.show();
 			}
 			else
-				console.error(o.channel + ' channel is not defined!');
+				console.error(o.channel + ' channel was not found!');
 		},
 		// sorts the channel definitions based on the pos numeric property
 		'sortChannels':function(a,b)

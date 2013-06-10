@@ -6,17 +6,8 @@
 	overflow-y: auto;
 	overflow-x: hidden;
 }
-.dGrowl-channel {
-	z-index: 999;
-	position: relative;
-	padding: 4px;
-	overflow: hidden;
-	width: 220px;
-}
+
 .dGrowl-notification {
-	background-color: #D9EDF7;
-    border: 1px solid #BCE8F1;
-    color: #000000;
 	margin: 5px;
 	padding: 5px;
 	width: 190px;
@@ -29,11 +20,24 @@
 	border-radius: 5px;
 	-webkit-box-shadow: 5px 5px 12px -10px , 1);
 	box-shadow: 5px 5px 12px -10px , 1);
-
 }
 .dGrowl-topRight {
 	top: 10px;
 	right: 5px;
+}
+/* -- CHANNELS -- */
+.dGrowl-channel {
+	z-index: 999;
+	position: relative;
+	padding: 0 4px;
+	overflow: hidden;
+	width: 220px;
+	display: block;
+}
+/* -- NOTIFICATIONS -- */
+.dGrowl-title {
+	font-weight: bold;
+	font-size: 0.9em;
 }
 .dGrowl-topRight .dGrowl-notification {
 	margin-left: 235px;
@@ -42,10 +46,6 @@
 	opacity: 0.85;
 	margin-left: 0;
 	margin-right: 0;
-}
-.dGrowl-title {
-	font-weight: bold;
-	font-size: 0.9em;
 }
 a.dGrowl-close-btn {
 	color: inherit;
@@ -70,4 +70,15 @@ a.dGrowl-close-btn:hover {
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-weight: bold;
 	font-style: normal;
+}
+/* default notification*/
+.dGrowl-notification {
+	background-color: #D9EDF7;
+    border: 1px solid #BCE8F1;
+    color: #000000;
+}
+/* Custom notification styles! */
+.dGrowl-channel-error .dGrowl-notification {
+	background-color: #F2DEDE;
+    border-color: #B94A48;
 }
