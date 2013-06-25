@@ -3,6 +3,7 @@
 	max-height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
+	z-index: 999;
 }
 
 .dGrowl-notification {
@@ -18,6 +19,8 @@
 	border-radius: 5px;
 	-webkit-box-shadow: 5px 5px 12px -10px , 1);
 	box-shadow: 5px 5px 12px -10px , 1);
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	color: #222;
 }
 .dGrowl-topRight {
 	top: 10px;
@@ -41,7 +44,7 @@
 	margin-left: 235px;
 }
 .dGrowl-notification.dGrowl-visible {
-	opacity: 0.85;
+	opacity: 1;
 	margin-left: 0;
 	margin-right: 0;
 }
@@ -71,12 +74,11 @@ a.dGrowl-close-btn:hover {
 }
 /* default notification*/
 .dGrowl-notification {
-	background-color: #D9EDF7;
+	background-color: rgb(217, 237, 247);
     border: 1px solid #BCE8F1;
-    color: #000000;
 }
 /* Custom notification styles! */
 .dGrowl-channel-error .dGrowl-notification {
-	background-color: #F2DEDE;
-    border-color: #B94A48;
+	background-color: rgb(242, 222, 222);
+    border: 1px solid #B94A48;
 }
