@@ -46,7 +46,7 @@ define([ "dojo/text", "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_Templat
 		},
 		'_subscribedChannels':function()
 		{
-			this.addNotification(arguments[0], arguments[1])
+			return this.addNotification(arguments[0], arguments[1])
 		},
 		'addChannel':function(c, o)
 		{
@@ -70,9 +70,11 @@ define([ "dojo/text", "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_Templat
 				var n = new NotificationNode(o);
 				domCon.place(n.domNode, this.chanDefs[o.channel].node); // push to page
 				n.show();
+				return n;
 			}
 			else
 				console.error(o.channel + ' channel was not found!');
+			return false;
 		},
 		// sorts the channel definitions based on the pos numeric property
 		'sortChannels':function(a,b)
