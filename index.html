@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
+<!DOCTYPE html><head>
+    <meta charset="utf-8">
     <title>stratease/dGrowl</title>
 	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
 	<link href="dGrowl/dGrowl.css" rel="stylesheet">
@@ -14,7 +12,7 @@
 			background-color: #FFFFFF;
 			width: 960px;
 			padding: 10px 25px;
-			margin: 0 auto;
+			margin: 53px auto 100px;
 			border: 1px solid #CCCCCC;
 		}
 	</style>
@@ -61,7 +59,7 @@
 		<p><a href="#try">Try it out</a> below!</p>
 		<h2>Features</h2>
 		<p>
-			<ul>
+			</p><ul>
 				<li><b>Channels</b> - a system for organization of various classifications of messages. A common usage example would be an "error" channel vs. an "info" channel. This allows custom styling for user defined channels, as well as grouping the notifications within their respective channel.</li>
 				<li><b>Customizable Styles</b> - there are several built in styles out of the box, but with the CSS class structure of the notification elements it makes it easy to modify to suit your needs.</li>
 				<li><b>Sticky notices</b> - you can determine any message to be important enough to wait until a user decides to close it by using the <a href="#sticky">sticky</a> flag.</li>
@@ -69,24 +67,22 @@
 				<li><b>Built in Topic Subscription</b> - utilizes dojo's <a href="https://dojotoolkit.org/reference-guide/1.9/dojo/topic.html#dojo-topic">topic</a> module, which makes it easy to use from various scopes of your application. Create one dGrowl instance and publish your events from anywhere. If desired, you can use the addNotification procedural API as well.</li>
 				<li><b>Event Hooks</b> - built in onShow and onHide events for the notification widgets.</li>
 			</ul>
-		</p>
+		<p></p>
 		<h2 id="example">Examples</h2>
 		<p>A simple example.
-			<pre>
-var dg = new dGrowl();
+			</p><pre>var dg = new dGrowl();
 dg.addNotification('Hello world!');
 			</pre>
-		</p>
-		<p>Creating two channels and publishing a <code>dGrowl</code> event.
-			<pre>
-var dg = new dGrowl({'channels':[{'name':'info','pos':2},{'name':'error', 'pos':1}]});
+		<p></p>
+		<p>Creating two channels and publishing a message first using the <code>addNotification</code> API and then via the <code>dGrowl</code> event.
+			</p><pre>var dg = new dGrowl({'channels':[{'name':'info','pos':2},{'name':'error', 'pos':1}]});
 dg.addNotification('Ut oh, something broke!',{'channel':'error'});
 topic.publish('dGrowl', 'This message is stickied!', {'title':"Onward ho!", 'sticky':true});
 			</pre>
-		</p>
+		<p></p>
 		<h2 id="api">API</h2>
-		<h3><i>dGrowl</i></h3>
-		<code>dGrowl([optionsl])</code>
+		<h3><i>dGrowl Configuration</i></h3>
+		<code>dGrowl([options])</code>
 		<table class="table table-condensed table-striped">
 			<thead>
 				<tr>
@@ -118,11 +114,9 @@ topic.publish('dGrowl', 'This message is stickied!', {'title':"Onward ho!", 'sti
 				</tr>
 			</tbody>
 		</table>
-		<h3><i>addNotification</i> and <i>dGrowl topic</i></h3>
-		<form class="form form-inline" id="try">
-			<h4>Try it out!</h4>
-			<input id="mN" type="text" placeholder="message" title="Message parameter for the addNotification API" /> <input id="oN" type="text" title="Options parameter for the addNotification API" placeholder="{duration:1500, title:'Hi dude!'}" /> <button class="btn btn-primary" type="button" onclick="runEvalCode();">Add Notification!</button>
-		</form>
+		
+		<h3 id="options">Message Options</h3>
+		<p>These are the options that can be passed to any message that is published. Messages are typically published to a particular channel i.e. "error" or "default" with various display options.</p>
 		<code>addNotification( String message, [options])</code>
 		<table class="table table-condensed table-striped">
 			<thead>
@@ -155,7 +149,15 @@ topic.publish('dGrowl', 'This message is stickied!', {'title':"Onward ho!", 'sti
 				</tr>
 			</tbody>
 		</table>
-
+		<h2 id="try">Demo</h2>
+		<form class="form form-inline">
+			<h4>Try it out!</h4>
+			See <a href="#options">message options</a>
+			<div style="margin: 4px 0;">
+				<input id="mN" type="text" placeholder="message" title="Message parameter for the addNotification API"> <input id="oN" type="text" title="Options parameter for the addNotification API" placeholder="{duration:1500, title:'Hi dude!'}"> <button class="btn btn-primary" type="button" onclick="runEvalCode();">Publish Message!</button>
+			</div>
+		</form>
 	</div>
-  </body>
-</html>
+  
+
+</body></html>
