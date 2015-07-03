@@ -1,0 +1,20 @@
+{
+  "name": "dGrowl",
+  "author": "Eddie Daniels <stratease@gmail.com>",
+  "version": "0.1.2",
+  "description": "A simple, extensible \"growl\" like notification widget using the dojo js framework.",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stratease/dGrowl"
+  },
+  "directories": {
+    "lib": "."
+  },
+  "dojoBuild": "package.js"
+}
