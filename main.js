@@ -1,10 +1,10 @@
-define([ "dojo/text", "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin", "dojo/topic", "dojo/dom-construct", "dGrowl/NotificationNode", "dojo/query", "dojo/_base/lang", "dojo/dom-class"],
-	   function(t, declare, base, templated, topic, domCon, NotificationNode, query, lang, domClass)
+define([ "dojo/text", "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin", "dojo/topic", "dojo/dom-construct", "dGrowl/NotificationNode", "dojo/query", "dojo/_base/lang", "dojo/dom-class", "dojo/text!./main.html"],
+	   function(t, declare, base, templated, topic, domCon, NotificationNode, query, lang, domClass, templateString)
 {
 	return declare('dGrowl',
 	[base, templated],
 	{
-		'templateString':dojo.cache('dGrowl', 'main.html'),
+		'templateString':templateString,
 		'channels':[{name:'default', pos:0}], // channel user definitions
 		'orientation':'topRight',
 		'defaultChannel':null,
